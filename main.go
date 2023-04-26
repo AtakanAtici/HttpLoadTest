@@ -4,10 +4,22 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 func main(){
-	resp, err := http.Get("https://example.com")
+
+	args := os.Args
+
+	if len(args) < 2 {
+		fmt.Println("Usage: go run main.go <url>")
+		return
+	}
+
+	url := args[1]
+	
+
+	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Error sending request:", err)
 		return
@@ -19,5 +31,6 @@ func main(){
 		fmt.Println("Error readin response:", err)
 		return
 	}
+	
 	fmt.Println(string(body))
 }
